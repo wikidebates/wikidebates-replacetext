@@ -220,6 +220,9 @@ class Job extends JobParent {
 				if ( isset( $this->params['botEdit'] ) && $this->params['botEdit'] ) {
 					$flags |= EDIT_FORCE_BOT;
 				}
+				if ( !empty( $this->params['suppress_rc'] ) ) {
+					$flags |= EDIT_SUPPRESS_RC;
+				}
 				if ( $this->permissionManager->userHasRight( $current_user, 'patrol' ) ||
 					$this->permissionManager->userHasRight( $current_user, 'autopatrol' ) ) {
 					$updater->setRcPatrolStatus( RecentChange::PRC_PATROLLED );

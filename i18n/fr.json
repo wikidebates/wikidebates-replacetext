@@ -57,5 +57,6 @@
 	"replacetext_no_compress": "Votre wiki ne fonctionnera pas avec ReplaceText: les remplacements de text ne peuvent s’exécuter si $wgCompressRevisions est positionné à vrai.",
 	"replacetext_no_external_stores": "Votre wiki ne fonctionnera pas avec ReplaceText: les remplacements de text ne peuvent s’exécuter si $wgCompressRevisions est non vide.",
 	"right-replacetext": "Faire des remplacements de chaîne dans tout le wiki",
-	"action-replacetext": "faire les remplacements de chaîne dans tout le wiki"
+	"action-replacetext": "faire les remplacements de chaîne dans tout le wiki",
+	"replacetext-suppressrc": "Ne pas afficher dans les modifications récentes"
 }

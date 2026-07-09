@@ -65,6 +65,8 @@ class SpecialReplaceText extends SpecialPage {
 	private $selected_namespaces;
 	/** @var bool */
 	private $botEdit;
+	/** @var bool */
+	private $suppressRc;
 
 	/** @var HookHelper */
 	private $hookHelper;
@@ -236,6 +238,7 @@ class SpecialReplaceText extends SpecialPage {
 		$this->edit_pages = $request->getBool( 'edit_pages' );
 		$this->move_pages = $request->getBool( 'move_pages' );
 		$this->botEdit = $request->getBool( 'botEdit' );
+		$this->suppressRc = $request->getBool( 'suppress_rc' );
 		$this->selected_namespaces = $this->getSelectedNamespaces();
 
 		if ( $request->getCheck( 'continue' ) && $this->target === '' ) {
@@ -378,7 +381,8 @@ class SpecialReplaceText extends SpecialPage {
 			'use_regex' => $this->use_regex,
 			'create_redirect' => false,
 			'watch_page' => false,
-			'botEdit' => $this->botEdit
+			'botEdit' => $this->botEdit,
+			'suppress_rc' => $this->suppressRc
 		];
 		$replacement_params['edit_summary'] = $this->msg(
 			'replacetext_editsummary',
@@ -735,6 +739,13 @@ class SpecialReplaceText extends SpecialPage {
 				)
 			);
 		}
+
+		$out->addHTML(
+			'<br />' .
+			Html::rawElement( 'label', [],
+				Html::input( 'suppress_rc', '1', 'checkbox' ) . ' ' . $this->msg( 'replacetext-suppressrc' )->escaped()
+			)
+		);
 		$continueButton = new OOUI\ButtonInputWidget( [
 			'type' => 'submit',
 			'label' => $this->msg( 'replacetext_continue' )->text(),
@@ -836,6 +847,7 @@ class SpecialReplaceText extends SpecialPage {
 			Html::hidden( 'move_pages', $this->move_pages ) .
 			Html::hidden( 'edit_pages', $this->edit_pages ) .
 			Html::hidden( 'botEdit', $this->botEdit ) .
+			Html::hidden( 'suppress_rc', $this->suppressRc ) .
 			Html::hidden( 'replace', 1 ) .
 			Html::hidden( 'token', $this->getToken() )
 		);
